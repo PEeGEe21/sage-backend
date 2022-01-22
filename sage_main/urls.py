@@ -10,7 +10,7 @@ from rest_framework import routers
 urlpatterns = [
 
     # path('home', views.home, name='exam-home'),
-    path('home', views.home, name='home'),
+    path('', views.home, name='home'),
     # url(r'^api/', include(router.urls))
     # path('products/', views.ProductView.as_view({'get': 'list'}), name='product-get'),
     # path('product/save', views.ProductView.as_view({'post': 'list'}), name='product-save'),
