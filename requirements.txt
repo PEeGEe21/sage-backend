@@ -23,7 +23,6 @@ psycopg2-binary==2.9.3
 pycairo==1.16.2
 pycrypto==2.6.1
 pycups==1.9.73
-pygobject==3.26.1
 PyJWT==2.3.0
 pylint==2.7.2
 pylint-django==2.4.4
