@@ -40,7 +40,7 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('home')
 
-choices = [ item for item in Category.objects.all().values_list('name', 'name')] 
+# choices = [ item for item in Category.objects.all().values_list('name', 'name')] 
     
 
 
@@ -67,7 +67,7 @@ class Product(models.Model):
     is_recommended = models.BooleanField(default=True)
     is_popular = models.BooleanField(default=False)
     # sizes = models.CharField(choices=SIZE , max_length=255, default=None, blank=True, null)
-    category = models.CharField(choices=choices , max_length=255, default=None)
+    category = models.CharField(Category , max_length=255, default=None)
     # category = models.ManyToManyField(Category, related_name='products', default=None)
     date_added = models.DateField(auto_now_add=True, blank=True, null=True)
 
