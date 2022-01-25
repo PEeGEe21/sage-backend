@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 
 class Admin(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.png', upload_to='profile_pics')
     mobile = models.CharField(max_length=20,null=False)

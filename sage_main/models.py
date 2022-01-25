@@ -25,6 +25,8 @@ FAVORITE = (
     )
 
 
+
+
 class Category(models.Model):
     name = models.CharField(max_length=255, default=None, blank=True, null=True)
     
@@ -118,6 +120,7 @@ class Review(models.Model):
 
 
 class Cart(models.Model):
+    id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     products = models.ForeignKey(Product, related_name='products', on_delete=models.CASCADE, db_constraint=False)
 
