@@ -10,6 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
+import environ
+
+# from environs import Env
+env = environ.Env()
+environ.Env.read_env()
+
 import os
 from datetime import timedelta
 
@@ -28,6 +34,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'i(qb8selpa)1181lhqm(l=d)+o04n5^wsad&ur!=g#1w+3aq#-'
+
+# SECRET_KEY = env.str('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -171,6 +179,13 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+# STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
+# STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
+STRIPE_SECRET_KEY = 'sk_test_51KS9QcHOYXT3XuO9vmrTu9E3mIPuEsHE3us8ISoapTunZyWFXrbcTHR5DrJFeSICDvFMXFDAs5cHdOnE0qJWXBbt009lDSo4WB'
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+SITE_URL = 'https://localhost:3000'
+
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 

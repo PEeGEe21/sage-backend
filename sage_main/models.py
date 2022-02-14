@@ -1,5 +1,6 @@
 
 
+from email.policy import default
 from django.db import models
 from django.db.models.enums import Choices
 from django.utils import timezone
@@ -131,8 +132,14 @@ class Cart(models.Model):
         return self.user
 
 class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    id = models.BigAutoField(primary_key=True)
+    user = models.CharField(max_length=240, null=True)
+    # user_email = models.EmailField(max_length=240, null=True)
     ordered_products = models.ForeignKey(Product, on_delete=models.CASCADE)
     amount = models.BigIntegerField(default=None, blank=True, null=True)
+    # stripe_payment_intent = models.CharField(max_length=200, default=None, null=True)
     address = models.CharField(max_length=240)
-    status = models.CharField(max_length=20, default="Pending")
+    orderstatus = models.CharField(max_length=20, default="Pending")
+    paid = models.CharField(max_length=200, default=False)
+    payment_method = models.CharField(max_length=300, default=None, null=True)
+    description = models.CharField(max_length=300, default=None, null=True)

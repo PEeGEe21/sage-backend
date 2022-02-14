@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.conf.urls.static import static
 
-
+from sage_main import views
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -27,6 +27,9 @@ router.register(r'register',  views.RegisterView, 'register' )
 urlpatterns = [
     path('super-admin/', admin.site.urls),
     path('api/auth/', include('users.urls')),
+    path('api/payment/', views.test_payment, name='payment'),
+    path('api/checkout/', views.StripeCheckoutView.as_view()),
+
     # path('token/', views.MyObtainTokenPairView.as_view(), name='token_obtain_pair'),
     # path('token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/', include(router.urls)),
