@@ -1,3 +1,4 @@
+from itertools import product
 from locale import currency
 from statistics import mode
 import django
@@ -35,6 +36,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.permissions import AllowAny
 from rest_framework.permissions import IsAuthenticated
+from django.db.models import Q
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -74,6 +76,24 @@ class ProfileView(viewsets.ModelViewSet):
 
 
 
+
+
+@api_view(['POST'])
+def search(request):
+    query = request.data.get('query', '')
+
+    if query:
+        print("printqueryyy")
+        products = Product.objects.filter(Q(name__icontains=query) | Q(description__icontains=query) | Q(category__icontains=query))
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data)
+    else:
+        return Response({"products": []})
+
+
+
+
+
 @api_view(['POST'])
 def test_payment(request):
     data = request.data
@@ -87,10 +107,12 @@ def test_payment(request):
     # state= data["address_city"]
     # country= data["address_country"]
     # city= data["address_line1"]
+    cart= data["cart"]
 
     # address = (state + "," + country + "," + city)
     description = data["description"]
     print(description, "description")
+    print(cart, "cart")
     # print(billing_details, "billing_details")
     # print(source, "sourceeeeee")
     # print(billing_details, "billing_details")
@@ -101,7 +123,7 @@ def test_payment(request):
         print("workinggg")
         test_payment_intent = stripe.Charge.create(
             source= source,
-            amount= amount,
+            amount= amount*100,
             description = description,
             currency="usd",
             
@@ -144,7 +166,7 @@ def test_payment(request):
         # order.save()
         # print(order, "order")
 
-        # test_payment_intent = stripe.PaymentIntent.create(amount=1000, currency='pln', payment_method_types= ['card'],receipt_email='test@example.com')
+        # test_payment_intent = stripe.PaymentIntent.create(amount=1000, currency='pln', payment_method_types= ['card'], receipt_email='test@example.com')
         
 
         return Response(status=status.HTTP_200_OK)

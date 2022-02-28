@@ -28,6 +28,7 @@ urlpatterns = [
     path('super-admin/', admin.site.urls),
     path('api/auth/', include('users.urls')),
     path('api/payment/', views.test_payment, name='payment'),
+    path('api/products/search/', views.search, name='search'),
     path('api/checkout/', views.StripeCheckoutView.as_view()),
 
     # path('token/', views.MyObtainTokenPairView.as_view(), name='token_obtain_pair'),
